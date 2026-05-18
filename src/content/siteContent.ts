@@ -17,7 +17,7 @@ export const siteContent = {
       title: "考场安排",
       subtitle: "Exam Seating Tool",
       cta: "打开小工具",
-      href: "http://127.0.0.1:5173/",
+      href: "https://examseats.seeklume.work/?view=home",
     },
   ],
 };
