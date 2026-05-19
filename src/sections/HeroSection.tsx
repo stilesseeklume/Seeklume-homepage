@@ -2,10 +2,10 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { siteContent } from '../content/siteContent';
 
 const VIDEOS = [
-  { src: '/bg1.mp4', alt: 'Hot air balloons at dawn' },
-  { src: '/bg2.mp4', alt: 'Sunset over Durham' },
-  { src: '/bg3.mp4', alt: 'Autumn maple leaf' },
-  { src: '/bg4.mp4', alt: 'New scene' },
+  { src: '/bg1.mp4', poster: '/bg1-poster.jpg', alt: 'Hot air balloons at dawn' },
+  { src: '/bg2.mp4', poster: '/bg2-poster.jpg', alt: 'Sunset over Durham' },
+  { src: '/bg3.mp4', poster: '/bg3-poster.jpg', alt: 'Autumn maple leaf' },
+  { src: '/bg4.mp4', poster: '/bg4-poster.jpg', alt: 'New scene' },
 ];
 
 export default function HeroSection() {
@@ -117,7 +117,12 @@ export default function HeroSection() {
     <section
       id="top"
       className="relative min-h-screen flex flex-col overflow-hidden"
-      style={{ backgroundColor: '#1a1025' }}
+      style={{
+        backgroundColor: '#1a1025',
+        backgroundImage: "url('/bg1-poster.jpg')",
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+      }}
     >
       {/* Video Backgrounds with crossfade */}
       <div className="absolute inset-0 z-0">
@@ -128,7 +133,8 @@ export default function HeroSection() {
             muted
             loop={false}
             playsInline
-            preload="auto"
+            preload={index === 0 ? 'auto' : 'metadata'}
+            poster={video.poster}
             aria-label={video.alt}
             onEnded={() => switchVideo(1)}
             className="absolute inset-0 w-full h-full object-cover"
