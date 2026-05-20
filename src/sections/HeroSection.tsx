@@ -2,18 +2,14 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { siteContent } from '../content/siteContent';
 
 const VIDEOS = [
-  { src: '/bg1.mp4', poster: '/bg1-poster.jpg', alt: 'Hot air balloons at dawn' },
-  { src: '/bg2.mp4', poster: '/bg2-poster.jpg', alt: 'Sunset over Durham' },
-  { src: '/bg3.mp4', poster: '/bg3-poster.jpg', alt: 'Autumn maple leaf' },
-  { src: '/bg4.mp4', poster: '/bg4-poster.jpg', alt: 'New scene' },
+  { src: '/bg1-web.mp4', poster: '/bg1-poster.jpg', alt: 'Hot air balloons at dawn' },
+  { src: '/bg2-web.mp4', poster: '/bg2-poster.jpg', alt: 'Sunset over Durham' },
 ];
 
 export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activePanel, setActivePanel] = useState(0);
-  const [isFading, setIsFading] = useState(false);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wheelLockRef = useRef(false);
   const panelCount = 2;
 
@@ -30,24 +26,15 @@ export default function HeroSection() {
     }
   }, [currentIndex]);
 
-  // Switch video with fade
+  // Switch video
   const switchVideo = useCallback((direction = 1) => {
-    setIsFading(true);
-    timerRef.current = setTimeout(() => {
-      setCurrentIndex((prev) => (prev + direction + VIDEOS.length) % VIDEOS.length);
-      setIsFading(false);
-    }, 600);
+    setCurrentIndex((prev) => (prev + direction + VIDEOS.length) % VIDEOS.length);
   }, []);
 
   // Jump to specific video
   const jumpTo = useCallback((index: number) => {
-    if (index === currentIndex) return;
-    setIsFading(true);
-    timerRef.current = setTimeout(() => {
-      setCurrentIndex(index);
-      setIsFading(false);
-    }, 600);
-  }, [currentIndex]);
+    setCurrentIndex(index);
+  }, []);
 
   const switchPanel = useCallback((direction = 1) => {
     setActivePanel((prev) => Math.max(0, Math.min(panelCount - 1, prev + direction)));
@@ -106,13 +93,6 @@ export default function HeroSection() {
     });
   }, [currentIndex]);
 
-  // Cleanup timer
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, []);
-
   return (
     <section
       id="top"
@@ -133,6 +113,7 @@ export default function HeroSection() {
             muted
             loop={false}
             playsInline
+            autoPlay={index === currentIndex}
             preload={index === 0 ? 'auto' : 'metadata'}
             poster={video.poster}
             aria-label={video.alt}
@@ -140,7 +121,7 @@ export default function HeroSection() {
             className="absolute inset-0 w-full h-full object-cover"
             style={{
               transition: 'opacity 0.6s ease-in-out',
-              opacity: index === currentIndex && !isFading ? 1 : 0,
+              opacity: index === currentIndex ? 1 : 0,
               zIndex: index === currentIndex ? 1 : 0,
               filter: 'contrast(1.06) saturate(1.08)',
             }}
