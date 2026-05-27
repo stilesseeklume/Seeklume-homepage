@@ -11,7 +11,7 @@ export const siteContent = {
       title: "英语教学",
       subtitle: "Seeklume English Teaching",
       cta: "进入系统",
-      href: "https://seeklume.work/",
+      href: "https://englishteaching.seeklume.work/",
     },
     {
       title: "考场安排",
