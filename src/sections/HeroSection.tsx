@@ -251,6 +251,13 @@ export default function HeroSection() {
           <span className="scroll-cue-line" aria-hidden="true" />
         </button>
       </div>
+
+      {/* 拍摄署名 — 极克制，右下角，不挡交互 */}
+      <div
+        className="pointer-events-none absolute bottom-5 right-6 z-[4] select-none text-[10px] uppercase tracking-[0.28em] text-white/40 drop-shadow-[0_2px_14px_rgba(0,0,0,0.75)]"
+      >
+        Shot by Stiles
+      </div>
     </section>
   );
 }
