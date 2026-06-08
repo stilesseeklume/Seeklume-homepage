@@ -19,5 +19,11 @@ export const siteContent = {
       cta: "打开小工具",
       href: "https://examseats.seeklume.work/?view=home",
     },
+    {
+      title: "照片歌词 MV",
+      subtitle: "Photo Lyrics MV",
+      cta: "打开制作器",
+      href: "https://stilesseeklume.github.io/personalized-lyrics-music-photos/",
+    },
   ],
 };
